@@ -1,6 +1,9 @@
-# Mockforme Angularjs
+# MockForMe Example with Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.6.
+This repository demonstrates how to integrate [MockForMe](https://www.npmjs.com/package/mockforme)
+ with an AngularJs project to easily mock APIs during development.
+
+MockForMe allows developers to simulate backend APIs without writing boilerplate servers, making frontend development and testing much faster.
 
 ## Development server
 
@@ -12,48 +15,79 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+# MockForMe Integration
+You can mock your APIs in development using the MockForMe NPM package.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+## Install `mockforme` as a dev dependency
+### Yarn
+```
+yarn add mockforme -D
+```
+### NPM
+```
+npm install mockforme --save-dev
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
-```bash
-ng generate --help
+### Initialize mockforme in `src/main.ts`
+```
+import { mockforme } from 'mockforme';
+
+const env: string = 'development';
+
+if (env === 'development') {
+  /*
+  * Get ACCESS_TOKEN from https://dashboard.mockforme.com/user/token
+  */
+  const TOKEN: string = "ACCESS_TOKEN";
+  mockforme(TOKEN).run((apis) => {
+    console.log(apis);
+  });
+}
+```
+### Make a HTTP call inside `src/app/app.component.ts`
+```
+export class AppComponent {
+  title = 'mockforme angularjs';
+  
+  userData = {}
+
+  constructor() {}
+
+  getUserData() {
+    // Call the mockforme API to get user data
+    fetch('/user/me')
+      .then(response => response.json())
+      .then(data => {
+        this.userData = data;
+      });
+  }
+}
 ```
 
-## Building
+### Create button in `src/app/app.component.html`
+```
+...
+  <button (click)="getUserData()">Get User Data</button>
 
-To build the project run:
-
-```bash
-ng build
+  ...
+    <pre>{{ userData | json }}</pre>
+  ...
+...
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+> Once the configuration is complete, you can create mock APIs directly from the [MockForMe dashboard](https://dashboard.mockforme.com).
+> Simply go to Create Collection → Create API → Define API Responses.
+> 
+> For this example, we’ve created a mock API with the **endpoint** `/user/me` and **method** `GET` in mockforme, which is being used in the `src/app/app.component.ts` file.
 
-## Running unit tests
+<hr />
+✅ That’s it! Just add these few lines and `mockforme` will start mocking your APIs.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+<br />
 
-```bash
-ng test
-```
+👉 Watch how to create mock API using mockforme in YouTube video:
+[https://www.youtube.com/watch?v=V1_leclmpTw](https://www.youtube.com/watch?v=V1_leclmpTw)
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Tags
+mockforme, angular mock api, angular api mocking, mock api angular, angular 19 mock api, angular api testing, mock api integration, angular frontend development, mock api example, angular cli mock api, angular 19 tutorial, angular api development, angular local server mock, angular testing utilities, frontend api mocking, api simulation angular, mock api tool angular, angular example project, mock api server angular, angular rapid prototyping
