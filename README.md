@@ -36,11 +36,7 @@ import { mockforme } from 'mockforme';
 const env: string = 'development';
 
 if (env === 'development') {
-  /*
-  * Get ACCESS_TOKEN from https://dashboard.mockforme.com/user/token
-  */
-  const TOKEN: string = "ACCESS_TOKEN";
-  mockforme(TOKEN).run((apis) => {
+  mockforme().run((apis) => {
     console.log(apis);
   });
 }

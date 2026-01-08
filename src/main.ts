@@ -11,8 +11,7 @@ if (env === 'development') {
    * You can get ACCESS_TOKEN from mockforme dashboard
    * https://dashboard.mockforme.com/user/token
    */
-  const TOKEN: string = "ACCESS_TOKEN";
-  mockforme(TOKEN).run((apis) => {
+  mockforme().run((apis) => {
     console.log(apis);
   });
 }
