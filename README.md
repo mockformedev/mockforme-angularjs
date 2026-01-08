@@ -33,13 +33,7 @@ npm install mockforme --save-dev
 ```
 import { mockforme } from 'mockforme';
 
-const env: string = 'development';
-
-if (env === 'development') {
-  mockforme().run((apis) => {
-    console.log(apis);
-  });
-}
+mockforme().run();
 ```
 ### Make a HTTP call inside `src/app/app.component.ts`
 ```
